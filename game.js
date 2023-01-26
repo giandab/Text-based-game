@@ -7,7 +7,7 @@ $(document).ready(function(){
   var $textarea = $('#gametext');
   $('[data-toggle="tooltip"]').tooltip();
 
-  //Write to textarea function
+  //Write to textarea function, scrolls and leaves a new line
   function print(text){
     $("#gametext").append(text);
     $textarea.scrollTop($textarea[0].scrollHeight);
@@ -34,14 +34,42 @@ $(document).ready(function(){
 
       }
     }
+      //Kill game function
+    function Killgame(){
+      $( "#gametext" ).hide();
+      $( "button" ).hide();
+    }
 
-
-  // Update Status bar
+  // Update Status bar function
+  /* a - health
+     b - food
+     c - water
+     d - mood
+  */
   function UpdateStatus(a,b,c,d) {
-    $("#health").text(Number($("#health").text())+a);
+
+      $("#health").text(Number($("#health").text())+a);
     $("#food").text(Number($("#food").text())+b);
     $("#water").text(Number($("#water").text())+c);
     $("#mood").text(Number($("#mood").text())+d);
+    
+    //checking if player has died
+    if ($("#health").text() <= 0){
+      alert("The wilderness has taken a heavy toll on your health. You breathe your last breath under the shade of an oak tree.");
+      Killgame();
+     }
+    else if ($("#food").text() <= 0){
+      alert("You die of starvation.");
+      Killgame();
+    }
+    else if ($("#water").text() <= 0){
+      alert("You die of thirst.");
+      Killgame();
+    }
+    else if ($("#mood").text() <= 0){
+      alert("You lose your mind and start running aimlessly. You attract the attention of a bear, which mauls you to death");
+      Killgame();
+    }
   }
 
 // Update resources
@@ -54,7 +82,7 @@ $(document).ready(function(){
     }
   }
 
-  // Scavenging
+  // Scavenging wood and components
   $("#scavenge_wood").click(function(){
     UpdateResources("#wood",5);
     UpdateStatus(0,-1,-1,0);
@@ -92,6 +120,7 @@ $(document).ready(function(){
     $("#explore_woods").show();
     $("#go_back").show();
   }
+
   //Leaving the shelter
   $("#leave_shelter").click(function() {
     $("button").hide();
@@ -125,6 +154,7 @@ $(document).ready(function(){
     }
   })
 
+  // Beginning work on crafting
   class Craftable {
     constructor(perequisite, resources, number_res, time, benefits, benefits_num, per_avail){
       this.perequisite= perequisite;
