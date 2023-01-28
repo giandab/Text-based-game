@@ -1,5 +1,6 @@
+ 
 $(document).ready(function(){
-
+  
   //Global information variables
   var item_array = [["fire",false],["bed",false],["barrel",false],["bow",false]];
 
@@ -48,7 +49,7 @@ $(document).ready(function(){
   */
   function UpdateStatus(a,b,c,d) {
 
-      $("#health").text(Number($("#health").text())+a);
+    $("#health").text(Number($("#health").text())+a);
     $("#food").text(Number($("#food").text())+b);
     $("#water").text(Number($("#water").text())+c);
     $("#mood").text(Number($("#mood").text())+d);
