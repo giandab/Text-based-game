@@ -11,12 +11,15 @@ $(document).ready(function(){
         xhr.open("POST", url, async= false);
     
         xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.setRequestHeader("Authorization", "Bearer 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");
+        xhr.setRequestHeader("Authorization", "Bearer YOUR_API_KEY_HERE");
     
     
     ///runs every time there is a state change
         xhr.onreadystatechange = function () {
         console.log("State changed!"); //debug
+        if (xhr.status === 401){
+            window.location = "game.html"
+        }
         if (xhr.readyState === 4) {
             console.log(xhr.status);
             console.log(xhr.responseText);
